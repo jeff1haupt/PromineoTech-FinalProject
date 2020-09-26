@@ -23,6 +23,10 @@ public class ClientMatterService {
     @Autowired
     private ClientRepository clientRepo;
 
-    
+    public ClientMatter createMatter(ClientMatter matter, Long clientId) {
+
+
+        return matter;
+    }
 
 }

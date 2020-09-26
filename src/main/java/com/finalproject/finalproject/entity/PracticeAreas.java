@@ -1,9 +1,11 @@
 package com.finalproject.finalproject.entity;
 
+import java.util.Set;
+
 public class PracticeAreas {
 
     private Long id;
-    private String practiceDescription;
+    private Set<String> practiceAreas;
 
     public Long getId() {
         return id;
@@ -13,11 +15,11 @@ public class PracticeAreas {
         this.id = id;
     }
 
-    public String getPracticeDescription() {
-        return practiceDescription;
+    public Set<String> getPracticeAreas() {
+        return practiceAreas;
     }
 
-    public void setPracticeDescription(String practiceDescription) {
-        this.practiceDescription = practiceDescription;
+    public void setPracticeAreas(Set<String> practiceAreas) {
+        this.practiceAreas = practiceAreas;
     }
 }

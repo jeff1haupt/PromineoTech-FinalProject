@@ -7,14 +7,14 @@ import java.util.Set;
 public class ClientMatter {
 
     private Long id;
-    private Set<PracticeAreas> PracticeAreas;
+    private PracticeAreas practiceArea;
     private Date dateOpened;
     private Date dateClosed;
     private String matterStatus;
     private boolean isHourly;
     private Set<TimeEntry> TimeEntry;
-    private Set<Client> Client;
-    private Set<Lawyer> Lawyer;
+    private Client client;
+    private Lawyer lawyer;
 
     public Long getId() {
         return id;
@@ -24,12 +24,12 @@ public class ClientMatter {
         this.id = id;
     }
 
-    public Set<com.finalproject.finalproject.entity.PracticeAreas> getPracticeAreas() {
-        return PracticeAreas;
+    public PracticeAreas getPracticeArea() {
+        return practiceArea;
     }
 
-    public void setPracticeAreas(Set<com.finalproject.finalproject.entity.PracticeAreas> practiceAreas) {
-        PracticeAreas = practiceAreas;
+    public void setPracticeArea(PracticeAreas practiceArea) {
+        this.practiceArea = practiceArea;
     }
 
     public Date getDateOpened() {
@@ -64,28 +64,27 @@ public class ClientMatter {
         isHourly = hourly;
     }
 
-    public Set<com.finalproject.finalproject.entity.TimeEntry> getTimeEntry() {
+    public Set<TimeEntry> getTimeEntry() {
         return TimeEntry;
     }
 
-    public void setTimeEntry(Set<com.finalproject.finalproject.entity.TimeEntry> timeEntry) {
+    public void setTimeEntry(Set<TimeEntry> timeEntry) {
         TimeEntry = timeEntry;
     }
 
-    public Set<com.finalproject.finalproject.entity.Client> getClient() {
-        return Client;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClient(Set<com.finalproject.finalproject.entity.Client> client) {
-        Client = client;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    @ManyToMany( mappedBy = "ClientMatters")
-    public Set<Lawyer> getLawyer() {
-        return Lawyer;
+    public Lawyer getLawyer() {
+        return lawyer;
     }
 
-    public void setLawyer(Set<com.finalproject.finalproject.entity.Lawyer> lawyer) {
-        Lawyer = lawyer;
+    public void setLawyer(Lawyer lawyer) {
+        this.lawyer = lawyer;
     }
 }
