@@ -5,6 +5,7 @@ import com.finalproject.finalproject.Repository.ClientRepository;
 import com.finalproject.finalproject.Repository.LawyerRepository;
 import com.finalproject.finalproject.entity.Client;
 import com.finalproject.finalproject.entity.ClientMatter;
+import com.finalproject.finalproject.entity.Lawyer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +23,6 @@ public class ClientMatterService {
     @Autowired
     private ClientRepository clientRepo;
 
-    public ClientMatter saveNewMatter() {
-
-    }
-
-    private ClientMatter initializeNewMatter(Set<Long> productIds, Client client) {
-        ClientMatter matter = new ClientMatter();
-        matter.setClient(client);
-        matter.setLawyer(Set<Lawyer> Lawyer);
-        matter.setPracticeAreas(PracticeArea);
-        //matter.setHourly(boolean hourly);
-        //matter.setDateOpened(Date dateOpened);
-        return matter;
-    }
+    
 
 }
