@@ -18,12 +18,46 @@ public class ClientService {
         return repo.save(client);
     }
 
-    public Client updateClient(Long clientId) throws Exception {
-        Optional<Client> client = repo.findById(clientId);
-        if ( client.isEmpty() ) {
+    public Client getClientById(Long id) throws Exception {
+        try {
+            Optional<Client> client = repo.findById(id);
+            if ( client.isEmpty() ) {
+                throw new Exception( "Client does not exist." );
+            }
+            return client.get();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public Iterable<Client> getClients() {
+        return repo.findAll();
+    }
+
+    public Client updateClient(Client client, Long clientId) throws Exception {
+        Optional<Client> client1 = repo.findById(clientId);
+        if ( client1.isEmpty() ) {
             throw new Exception( "Client does not exist." );
         }
-        
+        Client foundClient = client1.get();
+        foundClient.setFirstName(client.getFirstName());
+        foundClient.setLastName(client.getLastName());
+        foundClient.setEmail(client.getEmail());
+        foundClient.setPhoneCell(client.getPhoneCell());
+        foundClient.setPhoneHome(client.getPhoneHome());
+        foundClient.setPhoneWork(client.getPhoneWork());
+        foundClient.setStreetAddress(client.getStreetAddress());
+        foundClient.setCity(client.getCity());
+        foundClient.setState(client.getState());
+        return repo.save(foundClient);
+    }
+
+    public void deleteClient(Long id) throws Exception {
+        try {
+            repo.deleteById(id);
+        } catch (Exception e){
+            throw new Exception( "Unable to delete Client." );
+        }
     }
 
 }
