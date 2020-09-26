@@ -1,7 +1,11 @@
 package com.finalproject.finalproject.entity;
 
+import com.finalproject.finalproject.entity.ClientMatter;
+
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Lawyer {
 
     private Long id;
@@ -10,9 +14,11 @@ public class Lawyer {
     private String email;
     private String phoneNumber;
     private double hourlyRate;
-    private Set<Client> Client;
-    private Set<ClientMatter> ClientMatter;
+    private Set<Client> Clients;
+    private Set<ClientMatter> ClientMatters;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -61,19 +67,27 @@ public class Lawyer {
         this.hourlyRate = hourlyRate;
     }
 
-    public Set<com.finalproject.finalproject.entity.Client> getClient() {
-        return Client;
+    @OneToMany
+    @JoinColumn( name = "clientId")
+    public Set<Client> getClient() {
+        return Clients;
     }
 
-    public void setClient(Set<com.finalproject.finalproject.entity.Client> client) {
-        Client = client;
+    public void setClient(Set<Client> client) {
+        this.Clients = client;
     }
 
-    public Set<com.finalproject.finalproject.entity.ClientMatter> getClientMatter() {
-        return ClientMatter;
+    //Many to Many???
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "lawyer_cases",
+            joinColumns = @JoinColumn( name = "lawyerId"),
+            inverseJoinColumns = @JoinColumn( name = "matterId"))
+    public Set<ClientMatter> getClientMatter() {
+        return ClientMatters;
     }
 
-    public void setClientMatter(Set<com.finalproject.finalproject.entity.ClientMatter> clientMatter) {
-        ClientMatter = clientMatter;
+    public void setClientMatter(Set<ClientMatter> ClientMatters) {
+        this.ClientMatters = ClientMatters;
     }
 }

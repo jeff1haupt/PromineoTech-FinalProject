@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.entity;
 
+import javax.persistence.ManyToMany;
 import java.util.Date;
 import java.util.Set;
 
@@ -79,7 +80,8 @@ public class ClientMatter {
         Client = client;
     }
 
-    public Set<com.finalproject.finalproject.entity.Lawyer> getLawyer() {
+    @ManyToMany( mappedBy = "ClientMatters")
+    public Set<Lawyer> getLawyer() {
         return Lawyer;
     }
 

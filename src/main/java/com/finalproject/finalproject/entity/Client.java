@@ -1,7 +1,9 @@
 package com.finalproject.finalproject.entity;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Client {
 
     private Long id;
@@ -15,8 +17,10 @@ public class Client {
     private String city;
     private String state;
     private String zipCode;
-    private Set<ClientMatter> ClientMatter;
+    private Set<ClientMatter> ClientMatters;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -105,11 +109,13 @@ public class Client {
         this.zipCode = zipCode;
     }
 
-    public Set<com.finalproject.finalproject.entity.ClientMatter> getClientMatter() {
-        return ClientMatter;
+    @OneToMany
+    @JoinColumn( name = "matterId" )
+    public Set<ClientMatter> getClientMatter() {
+        return ClientMatters;
     }
 
-    public void setClientMatter(Set<com.finalproject.finalproject.entity.ClientMatter> clientMatter) {
-        ClientMatter = clientMatter;
+    public void setClientMatter(Set<com.finalproject.finalproject.entity.ClientMatter> clientMatters) {
+        this.ClientMatters = ClientMatters;
     }
 }

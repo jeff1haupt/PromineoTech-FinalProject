@@ -1,4 +1,8 @@
 package com.finalproject.finalproject.Repository;
 
-public class ClientRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.finalproject.finalproject.entity.Client;
+
+public interface ClientRepository extends CrudRepository<Client, Long>{
 }
