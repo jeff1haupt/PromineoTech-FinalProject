@@ -1,10 +1,9 @@
 package com.finalproject.finalproject.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
+import com.finalproject.finalproject.entity.ClientMatter;
 
 @Entity
 public class PracticeAreas {
@@ -13,6 +12,9 @@ public class PracticeAreas {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String practiceAreas;
+
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "practiceArea")
+    private Set<ClientMatter> clientMatters;
 
     public Long getId() {
         return id;
@@ -28,5 +30,13 @@ public class PracticeAreas {
 
     public void setPracticeAreas(String practiceAreas) {
         this.practiceAreas = practiceAreas;
+    }
+
+    public Set<ClientMatter> getMatters() {
+        return clientMatters;
+    }
+
+    public void setMatters(Set<ClientMatter> clientMatters) {
+        this.clientMatters = clientMatters;
     }
 }

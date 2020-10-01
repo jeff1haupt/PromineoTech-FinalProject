@@ -43,8 +43,8 @@ public class ClientMatterService {
         PracticeAreas pa = practiceAreas.get();
         matter.setClient(client);
         matter.setDateOpened(new Date());
-        matter.setLawyer(lawyer);
-        matter.setPracticeArea(pa);
+        matter.setLawyer((Set<Lawyer>) lawyer);
+        matter.setPracticeArea((Set<PracticeAreas>) pa);
         return repo.save(matter);
     }
 

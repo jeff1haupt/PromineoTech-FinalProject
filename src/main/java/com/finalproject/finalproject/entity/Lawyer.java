@@ -22,7 +22,7 @@ public class Lawyer {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<Client> Clients;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<ClientMatter> ClientMatters;
 
     public Long getId() {

@@ -10,18 +10,35 @@ import com.finalproject.finalproject.entity.Lawyer;
 @Entity
 public class ClientMatter {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private PracticeAreas practiceArea;
     private Date dateOpened;
     private Date dateClosed;
     private String matterStatus;
     private boolean isHourly;
-    private Set<TimeEntry> TimeEntry;
-    private Client client;
-    private Lawyer lawyer;
+    //private Set<TimeEntry> TimeEntry;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ManyToMany
+    @JoinTable(
+            name = "practiceArea_matters",
+            joinColumns = @JoinColumn(name = "practiceAreaid"),
+            inverseJoinColumns = @JoinColumn(name = "clientMatterid")
+    )
+    private Set<PracticeAreas> practiceArea;
+
+    @ManyToOne
+    @JoinColumn(name = "clientid")
+    private Client client;
+
+    @ManyToMany
+    @JoinTable(
+            name = "lawyer_cases",
+            joinColumns = @JoinColumn(name = "lawyerid"),
+            inverseJoinColumns = @JoinColumn(name = "clientMatterid")
+    )
+    private Set<Lawyer> lawyer;
+
     public Long getId() {
         return id;
     }
@@ -29,12 +46,11 @@ public class ClientMatter {
     public void setId(Long id) {
         this.id = id;
     }
-/*
-    public PracticeAreas getPracticeArea() {
+    public Set<PracticeAreas> getPracticeArea() {
         return practiceArea;
-    }*/
+    }
 
-    public void setPracticeArea(PracticeAreas practiceArea) {
+    public void setPracticeArea(Set<PracticeAreas> practiceArea) {
         this.practiceArea = practiceArea;
     }
 
@@ -79,8 +95,6 @@ public class ClientMatter {
         TimeEntry = timeEntry;
     }*/
 
-    @ManyToOne
-    @JoinColumn(name = "clientid")
     public Client getClient() {
         return client;
     }
@@ -89,13 +103,11 @@ public class ClientMatter {
         this.client = client;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "lawyerid")
-    public Lawyer getLawyer() {
+    public Set<Lawyer> getLawyer() {
         return lawyer;
     }
 
-    public void setLawyer(Lawyer lawyer) {
+    public void setLawyer(Set<Lawyer> lawyer) {
         this.lawyer = lawyer;
     }
 }
