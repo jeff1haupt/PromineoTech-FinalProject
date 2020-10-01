@@ -1,5 +1,9 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.finalproject.finalproject.entity.Lawyer;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,6 +21,10 @@ public class Client {
     private String city;
     private String state;
     private String zipCode;
+
+    private Lawyer lawyer;
+
+    @JsonIgnore
     private Set<ClientMatter> ClientMatters;
 
     @Id
@@ -109,8 +117,17 @@ public class Client {
         this.zipCode = zipCode;
     }
 
-    @OneToMany
-    @JoinColumn( name = "matterId" )
+    @ManyToOne()
+    @JoinColumn(name = "lawyerid")
+    public Lawyer getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(Lawyer lawyer) {
+        this.lawyer = lawyer;
+    }
+
+    @OneToMany(mappedBy = "client")
     public Set<ClientMatter> getClientMatter() {
         return ClientMatters;
     }

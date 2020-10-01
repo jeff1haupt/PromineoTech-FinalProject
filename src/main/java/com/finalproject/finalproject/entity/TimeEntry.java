@@ -1,7 +1,12 @@
 package com.finalproject.finalproject.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class TimeEntry {
 
     private Long id;
@@ -9,6 +14,8 @@ public class TimeEntry {
     private double timeEntry;
     private Date dateEntry;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

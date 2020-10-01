@@ -1,0 +1,17 @@
+com\finalproject\finalproject\Controller\ClientController.class
+com\finalproject\finalproject\Repository\ClientRepository.class
+com\finalproject\finalproject\Repository\TimeEntryRepository.class
+com\finalproject\finalproject\Controller\ClientMatterController.class
+com\finalproject\finalproject\Controller\LawyerController.class
+com\finalproject\finalproject\Repository\LawyerRepository.class
+com\finalproject\finalproject\entity\PracticeAreas.class
+com\finalproject\finalproject\Service\ClientService.class
+com\finalproject\finalproject\Repository\ClientMatterRepository.class
+com\finalproject\finalproject\Repository\PracticeAreasRepository.class
+com\finalproject\finalproject\entity\ClientMatter.class
+com\finalproject\finalproject\entity\Lawyer.class
+com\finalproject\finalproject\entity\TimeEntry.class
+com\finalproject\finalproject\Service\LawyerService.class
+com\finalproject\finalproject\FinalprojectApplication.class
+com\finalproject\finalproject\Service\ClientMatterService.class
+com\finalproject\finalproject\entity\Client.class

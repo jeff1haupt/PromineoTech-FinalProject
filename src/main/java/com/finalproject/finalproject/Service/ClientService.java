@@ -39,7 +39,12 @@ public class ClientService {
         if ( client1.isEmpty() ) {
             throw new Exception( "Client does not exist." );
         }
-        Client foundClient = client1.get();
+        Client foundClient = null;
+        try {
+            foundClient = client1.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         foundClient.setFirstName(client.getFirstName());
         foundClient.setLastName(client.getLastName());
         foundClient.setEmail(client.getEmail());

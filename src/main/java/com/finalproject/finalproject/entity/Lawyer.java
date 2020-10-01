@@ -1,6 +1,7 @@
 package com.finalproject.finalproject.entity;
 
 import com.finalproject.finalproject.entity.ClientMatter;
+import com.finalproject.finalproject.entity.Client;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -67,8 +68,7 @@ public class Lawyer {
         this.hourlyRate = hourlyRate;
     }
 
-    @OneToMany
-    @JoinColumn( name = "clientId")
+    @OneToMany(mappedBy = "lawyer")
     public Set<Client> getClient() {
         return Clients;
     }
@@ -76,13 +76,8 @@ public class Lawyer {
     public void setClient(Set<Client> client) {
         this.Clients = client;
     }
-
     //Many to Many???
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "lawyer_cases",
-            joinColumns = @JoinColumn( name = "lawyerId"),
-            inverseJoinColumns = @JoinColumn( name = "matterId"))
+    @OneToMany(mappedBy = "clientmatter")
     public Set<ClientMatter> getClientMatter() {
         return ClientMatters;
     }
