@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Set;
 import com.finalproject.finalproject.entity.PracticeAreas;
 import com.finalproject.finalproject.entity.Client;
+import com.finalproject.finalproject.entity.Lawyer;
 
 @Entity
 public class ClientMatter {
@@ -69,13 +70,14 @@ public class ClientMatter {
         isHourly = hourly;
     }
 
+
 /*    public Set<TimeEntry> getTimeEntry() {
         return TimeEntry;
-    }*/
+    }
 
     public void setTimeEntry(Set<TimeEntry> timeEntry) {
         TimeEntry = timeEntry;
-    }
+    }*/
 
     @ManyToOne
     @JoinColumn(name = "clientid")

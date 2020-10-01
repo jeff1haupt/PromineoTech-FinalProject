@@ -9,13 +9,13 @@ import java.util.Date;
 @Entity
 public class TimeEntry {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String description;
     private double timeEntry;
     private Date dateEntry;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

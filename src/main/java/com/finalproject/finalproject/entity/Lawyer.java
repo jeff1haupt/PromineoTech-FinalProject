@@ -9,17 +9,22 @@ import java.util.Set;
 @Entity
 public class Lawyer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private double hourlyRate;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<Client> Clients;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<ClientMatter> ClientMatters;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -68,7 +73,6 @@ public class Lawyer {
         this.hourlyRate = hourlyRate;
     }
 
-    @OneToMany(mappedBy = "lawyer")
     public Set<Client> getClient() {
         return Clients;
     }
@@ -77,7 +81,7 @@ public class Lawyer {
         this.Clients = client;
     }
     //Many to Many???
-    @OneToMany(mappedBy = "clientmatter")
+
     public Set<ClientMatter> getClientMatter() {
         return ClientMatters;
     }

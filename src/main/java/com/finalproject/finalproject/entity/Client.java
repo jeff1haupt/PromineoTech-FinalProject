@@ -10,6 +10,8 @@ import java.util.Set;
 @Entity
 public class Client {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
@@ -22,13 +24,13 @@ public class Client {
     private String state;
     private String zipCode;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid")
     private Lawyer lawyer;
 
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Set<ClientMatter> ClientMatters;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -117,8 +119,6 @@ public class Client {
         this.zipCode = zipCode;
     }
 
-    @ManyToOne()
-    @JoinColumn(name = "lawyerid")
     public Lawyer getLawyer() {
         return lawyer;
     }
@@ -127,12 +127,11 @@ public class Client {
         this.lawyer = lawyer;
     }
 
-    @OneToMany(mappedBy = "client")
     public Set<ClientMatter> getClientMatter() {
         return ClientMatters;
     }
 
-    public void setClientMatter(Set<com.finalproject.finalproject.entity.ClientMatter> clientMatters) {
+    public void setClientMatter(Set<ClientMatter> clientMatters) {
         this.ClientMatters = ClientMatters;
     }
 }
