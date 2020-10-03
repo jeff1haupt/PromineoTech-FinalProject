@@ -10,7 +10,6 @@ com\finalproject\finalproject\Repository\ClientMatterRepository.class
 com\finalproject\finalproject\Repository\PracticeAreasRepository.class
 com\finalproject\finalproject\entity\ClientMatter.class
 com\finalproject\finalproject\entity\Lawyer.class
-com\finalproject\finalproject\entity\TimeEntry.class
 com\finalproject\finalproject\Service\LawyerService.class
 com\finalproject\finalproject\FinalprojectApplication.class
 com\finalproject\finalproject\Service\ClientMatterService.class

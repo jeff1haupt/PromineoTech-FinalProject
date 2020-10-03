@@ -1,6 +1,8 @@
 package com.finalproject.finalproject.Service;
 
 import com.finalproject.finalproject.Repository.ClientRepository;
+import com.finalproject.finalproject.Repository.LawyerRepository;
+import com.finalproject.finalproject.entity.Lawyer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,15 @@ public class ClientService {
     @Autowired
     private ClientRepository repo;
 
-    public Client createClient(Client client) {
+    @Autowired
+    private LawyerRepository lawyerRepo;
+
+    public Client createClient(Client client, Long lawyerId) throws Exception {
+        Optional<Lawyer> lawyerObject = lawyerRepo.findById(lawyerId);
+        if (lawyerObject.isEmpty()) {throw new Exception( "Lawyer not found." ); }
+
+        Lawyer lawyer = lawyerObject.get();
+        client.setLawyer(lawyer);
         return repo.save(client);
     }
 

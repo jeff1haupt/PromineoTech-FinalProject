@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.finalproject.finalproject.entity.ClientMatter;
 import com.finalproject.finalproject.entity.Client;
 
@@ -10,15 +11,15 @@ import java.util.Set;
 public class Lawyer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private double hourlyRate;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<Client> Clients;
 
@@ -80,7 +81,7 @@ public class Lawyer {
     public void setClient(Set<Client> client) {
         this.Clients = client;
     }
-    //Many to Many???
+
 
     public Set<ClientMatter> getClientMatter() {
         return ClientMatters;

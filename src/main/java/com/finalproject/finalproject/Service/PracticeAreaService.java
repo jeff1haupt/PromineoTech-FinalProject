@@ -3,6 +3,7 @@ package com.finalproject.finalproject.Service;
 import com.finalproject.finalproject.Repository.PracticeAreasRepository;
 import com.finalproject.finalproject.entity.Client;
 import com.finalproject.finalproject.entity.PracticeAreas;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,14 @@ public class PracticeAreaService {
             return pArea.get();
         } catch (Exception e) {
             throw e;
+        }
+    }
+
+    public void deletePracticeArea(Long id) throws Exception {
+        try {
+            repo.deleteById(id);
+        } catch (Exception e) {
+            throw new Exception( "Unable to delete practice area.");
         }
     }
 

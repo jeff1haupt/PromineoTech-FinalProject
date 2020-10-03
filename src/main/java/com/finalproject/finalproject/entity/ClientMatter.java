@@ -3,27 +3,23 @@ package com.finalproject.finalproject.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
-import com.finalproject.finalproject.entity.PracticeAreas;
-import com.finalproject.finalproject.entity.Client;
-import com.finalproject.finalproject.entity.Lawyer;
 
 @Entity
 public class ClientMatter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dateOpened;
     private Date dateClosed;
     private String matterStatus;
     private boolean isHourly;
-    //private Set<TimeEntry> TimeEntry;
 
     @ManyToMany
     @JoinTable(
             name = "practiceArea_matters",
-            joinColumns = @JoinColumn(name = "practiceAreaid"),
-            inverseJoinColumns = @JoinColumn(name = "clientMatterid")
+            joinColumns = @JoinColumn(name = "clientMatterid"),
+            inverseJoinColumns = @JoinColumn(name = "practiceAreaid")
     )
     private Set<PracticeAreas> practiceArea;
 
@@ -34,10 +30,14 @@ public class ClientMatter {
     @ManyToMany
     @JoinTable(
             name = "lawyer_cases",
-            joinColumns = @JoinColumn(name = "lawyerid"),
-            inverseJoinColumns = @JoinColumn(name = "clientMatterid")
+            joinColumns = @JoinColumn(name = "clientMatterid"),
+            inverseJoinColumns = @JoinColumn(name = "lawyerid")
     )
     private Set<Lawyer> lawyer;
+
+    @OneToMany
+    @JoinColumn(name = "clientMatterid")
+    private Set<AttorneyTimeEntry> entry;
 
     public Long getId() {
         return id;
@@ -46,6 +46,7 @@ public class ClientMatter {
     public void setId(Long id) {
         this.id = id;
     }
+
     public Set<PracticeAreas> getPracticeArea() {
         return practiceArea;
     }
@@ -86,14 +87,13 @@ public class ClientMatter {
         isHourly = hourly;
     }
 
-
-/*    public Set<TimeEntry> getTimeEntry() {
-        return TimeEntry;
+    public Set<AttorneyTimeEntry> getEntry() {
+        return entry;
     }
 
-    public void setTimeEntry(Set<TimeEntry> timeEntry) {
-        TimeEntry = timeEntry;
-    }*/
+    public void setEntry(Set<AttorneyTimeEntry> entry) {
+        this.entry = entry;
+    }
 
     public Client getClient() {
         return client;

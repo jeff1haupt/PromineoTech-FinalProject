@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.finalproject.finalproject.entity.Lawyer;
@@ -11,7 +12,7 @@ import java.util.Set;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -24,6 +25,7 @@ public class Client {
     private String state;
     private String zipCode;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lawyerid")
     private Lawyer lawyer;
