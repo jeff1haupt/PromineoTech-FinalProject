@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.finalproject.finalproject.entity.ClientMatter;
 import com.finalproject.finalproject.entity.Client;
@@ -19,10 +20,11 @@ public class Lawyer {
     private String phoneNumber;
     private double hourlyRate;
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "clientMatter"})
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<Client> Clients;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client"})
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "lawyer")
     private Set<ClientMatter> ClientMatters;
 

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/client")
 public class ClientController {
@@ -27,9 +29,9 @@ public class ClientController {
     }
 
     //Create
-    @RequestMapping(value = "/{lawyerId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> addClient(@RequestBody Client client, @PathVariable Long lawyerId) throws Exception {
-        return new ResponseEntity<Object>(service.createClient(client, lawyerId), HttpStatus.CREATED);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Object> addClient(@RequestBody Client client) throws Exception {
+        return new ResponseEntity<Object>(service.createClient(client), HttpStatus.CREATED);
     }
 
     //Update

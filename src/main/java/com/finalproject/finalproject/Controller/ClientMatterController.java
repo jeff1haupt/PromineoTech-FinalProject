@@ -2,6 +2,7 @@ package com.finalproject.finalproject.Controller;
 
 import com.finalproject.finalproject.Service.ClientMatterService;
 import com.finalproject.finalproject.Service.LawyerService;
+import com.finalproject.finalproject.entity.Client;
 import com.finalproject.finalproject.entity.ClientMatter;
 import com.finalproject.finalproject.entity.Lawyer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class ClientMatterController {
 
     //Create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> createMatter(@RequestBody Set<Long> lawyerIds, @PathVariable Long id) throws Exception {
-        return new ResponseEntity<Object>(service.createMatter(lawyerIds, id), HttpStatus.CREATED);
+    public ResponseEntity<Object> addMatter(@PathVariable Long id) throws Exception {
+        return new ResponseEntity<Object>(service.createMatter(id), HttpStatus.CREATED);
     }
 
     //Update

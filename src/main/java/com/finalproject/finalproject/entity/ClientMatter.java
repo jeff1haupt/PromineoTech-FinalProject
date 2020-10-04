@@ -1,5 +1,7 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -15,19 +17,17 @@ public class ClientMatter {
     private String matterStatus;
     private boolean isHourly;
 
-    @ManyToMany
-    @JoinTable(
-            name = "practiceArea_matters",
-            joinColumns = @JoinColumn(name = "clientMatterid"),
-            inverseJoinColumns = @JoinColumn(name = "practiceAreaid")
-    )
-    private Set<PracticeAreas> practiceArea;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientMatterid")
+    private PracticeAreas practiceArea;
 
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "clientMatter", "lawyers"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid")
     private Client client;
 
-    @ManyToMany
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "client", "clientMatter"})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "lawyer_cases",
             joinColumns = @JoinColumn(name = "clientMatterid"),
@@ -47,11 +47,11 @@ public class ClientMatter {
         this.id = id;
     }
 
-    public Set<PracticeAreas> getPracticeArea() {
+    public PracticeAreas getPracticeArea() {
         return practiceArea;
     }
 
-    public void setPracticeArea(Set<PracticeAreas> practiceArea) {
+    public void setPracticeArea(PracticeAreas practiceArea) {
         this.practiceArea = practiceArea;
     }
 

@@ -1,7 +1,6 @@
 package com.finalproject.finalproject.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import com.finalproject.finalproject.entity.Lawyer;
 
@@ -25,11 +24,19 @@ public class Client {
     private String state;
     private String zipCode;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lawyerid")
-    private Lawyer lawyer;
+    //REMOVE AND JUST HAVE THE INTERSECTION BETWEEN LAWYERS AND CLIENTS BE THE CLIENT MATTER?
+    @JsonProperty("lawyers")
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "client", "clientMatter"})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "lawyer_clients",
+            joinColumns = @JoinColumn(name = "clientid", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "lawyerid", referencedColumnName = "id")
+    )
+    private Set<Lawyer> lawyer;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Set<ClientMatter> ClientMatters;
 
@@ -121,11 +128,11 @@ public class Client {
         this.zipCode = zipCode;
     }
 
-    public Lawyer getLawyer() {
+    public Set<Lawyer> getLawyer() {
         return lawyer;
     }
 
-    public void setLawyer(Lawyer lawyer) {
+    public void setLawyer(Set<Lawyer> lawyer) {
         this.lawyer = lawyer;
     }
 

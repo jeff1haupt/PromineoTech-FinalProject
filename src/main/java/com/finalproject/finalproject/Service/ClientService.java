@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.finalproject.finalproject.entity.Client;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ClientService {
@@ -19,12 +21,7 @@ public class ClientService {
     @Autowired
     private LawyerRepository lawyerRepo;
 
-    public Client createClient(Client client, Long lawyerId) throws Exception {
-        Optional<Lawyer> lawyerObject = lawyerRepo.findById(lawyerId);
-        if (lawyerObject.isEmpty()) {throw new Exception( "Lawyer not found." ); }
-
-        Lawyer lawyer = lawyerObject.get();
-        client.setLawyer(lawyer);
+    public Client createClient(Client client) throws Exception {
         return repo.save(client);
     }
 
@@ -73,6 +70,14 @@ public class ClientService {
         } catch (Exception e){
             throw new Exception( "Unable to delete Client." );
         }
+    }
+
+    private Set<Lawyer> convertToLawyerSet(Iterable<Lawyer> iterable) {
+        Set<Lawyer> lawyers = new HashSet<Lawyer>();
+        for( Lawyer lawyer : iterable ) {
+            lawyers.add(lawyer);
+        }
+        return lawyers;
     }
 
 }

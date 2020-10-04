@@ -28,10 +28,10 @@ public class ClientMatterService {
     @Autowired
     private TimeEntryRepository entryRepo;
 
-    public ClientMatter createMatter(Set<Long> lawyerIds, Long clientId) throws Exception {
+    public ClientMatter createMatter(Long clientId) throws Exception {
         try {
             Client client = clientRepo.findById(clientId).get();
-            ClientMatter matter = initializeNewMatter(lawyerIds, client);
+            ClientMatter matter = initializeNewMatter(client);
             return repo.save(matter);
         } catch (Exception e) {
             throw e;
@@ -71,12 +71,12 @@ public class ClientMatterService {
         }
     }
 
-    private ClientMatter initializeNewMatter(Set<Long> lawyerIds, Client client) {
+    private ClientMatter initializeNewMatter(Client client) {
         ClientMatter matter = new ClientMatter();
         matter.setMatterStatus("OPEN");
         matter.setDateOpened(new Date());
         matter.setClient(client);
-        matter.setLawyer(convertToLawyerSet(lawyerRepo.findAll()));
+        matter.setLawyer(convertToLawyerSet(client.getLawyer()));
         return matter;
     }
 
