@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,23 +28,15 @@ public class ClientMatterService {
     @Autowired
     private TimeEntryRepository entryRepo;
 
-    public ClientMatter createMatter(ClientMatter matter, Long clientId, Long lawyerId, Long practiceId) throws Exception {
-        Optional<Client> clientObject = clientRepo.findById(clientId);
-        if (clientObject.isEmpty()) { throw new Exception( "Client not found." ); }
-        Optional<Lawyer> lawyerObject = lawyerRepo.findById(lawyerId);
-        if (lawyerObject.isEmpty()) {throw new Exception( "Lawyer not found." ); }
-        Optional<PracticeAreas> practiceAreas = practiceRepo.findById(practiceId);
-        if (practiceAreas.isEmpty()) {throw new Exception( "Practice area does not exist." ); }
+    public ClientMatter createMatter(Set<Long> lawyerIds, Long clientId) throws Exception {
+        try {
+            Client client = clientRepo.findById(clientId).get();
+            ClientMatter matter = initializeNewMatter(lawyerIds, client);
+            return repo.save(matter);
+        } catch (Exception e) {
+            throw e;
+        }
 
-        Client client = clientObject.get();
-        Lawyer lawyer = lawyerObject.get();
-        PracticeAreas pa = practiceAreas.get();
-        matter.setClient(client);
-        matter.setMatterStatus("OPEN");
-        matter.setDateOpened(new Date());
-        matter.setLawyer((Set<Lawyer>) lawyer);
-        matter.setPracticeArea((Set<PracticeAreas>) pa);
-        return repo.save(matter);
     }
 
     public Iterable<ClientMatter> getAllMatters() {
@@ -76,6 +69,23 @@ public class ClientMatterService {
         } catch (Exception e){
             throw new Exception( "Unable to find matter." );
         }
+    }
+
+    private ClientMatter initializeNewMatter(Set<Long> lawyerIds, Client client) {
+        ClientMatter matter = new ClientMatter();
+        matter.setMatterStatus("OPEN");
+        matter.setDateOpened(new Date());
+        matter.setClient(client);
+        matter.setLawyer(convertToLawyerSet(lawyerRepo.findAll()));
+        return matter;
+    }
+
+    private Set<Lawyer> convertToLawyerSet(Iterable<Lawyer> iterable) {
+        Set<Lawyer> lawyers = new HashSet<Lawyer>();
+        for( Lawyer lawyer : iterable ) {
+            lawyers.add(lawyer);
+        }
+        return lawyers;
     }
 
 

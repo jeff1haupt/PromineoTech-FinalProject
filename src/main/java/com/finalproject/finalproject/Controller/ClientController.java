@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/client")
 public class ClientController {
 
     @Autowired
@@ -27,19 +27,19 @@ public class ClientController {
     }
 
     //Create
-    @RequestMapping(value = "/addClient/{lawyerId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{lawyerId}", method = RequestMethod.POST)
     public ResponseEntity<Object> addClient(@RequestBody Client client, @PathVariable Long lawyerId) throws Exception {
         return new ResponseEntity<Object>(service.createClient(client, lawyerId), HttpStatus.CREATED);
     }
 
     //Update
-    @RequestMapping(value = "/update/{clientId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{clientId}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateClient(@RequestBody Client client, @PathVariable Long clientId) throws Exception {
         return new ResponseEntity<Object>(service.updateClient(client, clientId), HttpStatus.OK);
     }
 
     //Delete
-    @RequestMapping(value = "/delete/{clientId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{clientId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteClient(@PathVariable Long clientId) throws Exception {
         service.deleteClient(clientId);
         return new ResponseEntity<Object>("Client with ID of: " + clientId + " has been deleted.", HttpStatus.OK);

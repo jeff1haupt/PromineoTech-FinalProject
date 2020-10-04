@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
-@RequestMapping("/matters")
+@RequestMapping("client/{id}/matters")
 public class ClientMatterController {
 
     @Autowired
@@ -28,19 +30,19 @@ public class ClientMatterController {
     }
 
     //Create
-    @RequestMapping(value = "/addMatter/{clientId}/{lawyerId}/{practiceId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createMatter(@RequestBody ClientMatter clientMatter, @PathVariable Long clientId, @PathVariable Long lawyerId, @PathVariable Long practiceId) throws Exception {
-        return new ResponseEntity<Object>(service.createMatter(clientMatter, clientId, lawyerId, practiceId), HttpStatus.CREATED);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Object> createMatter(@RequestBody Set<Long> lawyerIds, @PathVariable Long id) throws Exception {
+        return new ResponseEntity<Object>(service.createMatter(lawyerIds, id), HttpStatus.CREATED);
     }
 
     //Update
-    @RequestMapping(value = "/close/{matterId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{matterId}", method = RequestMethod.PUT)
     public ResponseEntity<Object> closeMatter(@RequestBody ClientMatter matter, @PathVariable Long matterId) throws Exception {
         return new ResponseEntity<Object>(service.closeMatter(matter, matterId), HttpStatus.OK);
     }
 
     //Delete
-    @RequestMapping( value = "/delete/{matterId}", method = RequestMethod.DELETE)
+    @RequestMapping( value = "/{matterId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteMatter(@PathVariable Long matterId) throws Exception {
         service.deleteMatter(matterId);
         return new ResponseEntity<Object>("Deleted matter id: " + matterId, HttpStatus.OK);
