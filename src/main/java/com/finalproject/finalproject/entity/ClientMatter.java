@@ -17,6 +17,7 @@ public class ClientMatter {
     private String matterStatus;
     private boolean isHourly;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client", "clientMatter"})
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientMatterid")
     private PracticeAreas practiceArea;
@@ -35,6 +36,7 @@ public class ClientMatter {
     )
     private Set<Lawyer> lawyer;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client", "clientMatter"})
     @OneToMany
     @JoinColumn(name = "clientMatterid")
     private Set<AttorneyTimeEntry> entry;

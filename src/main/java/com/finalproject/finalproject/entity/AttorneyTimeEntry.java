@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class AttorneyTimeEntry {
     private double timeSpent;
     private Date dateEntry;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client", "clientMatter"})
     @ManyToOne
     @JoinColumn(name = "clientMatterid")
     private ClientMatter clientMatter;

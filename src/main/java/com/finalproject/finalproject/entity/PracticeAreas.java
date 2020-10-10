@@ -3,6 +3,7 @@ package com.finalproject.finalproject.entity;
 import javax.persistence.*;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.finalproject.finalproject.entity.ClientMatter;
 
 @Entity
@@ -13,6 +14,7 @@ public class PracticeAreas {
     private Long id;
     private String practiceAreas;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "clientMatter", "client"})
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "practiceArea")
     private Set<ClientMatter> clientMatters;
 
