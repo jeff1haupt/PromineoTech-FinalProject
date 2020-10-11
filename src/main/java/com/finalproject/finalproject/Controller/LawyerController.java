@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.Controller;
 
+import com.finalproject.finalproject.Repository.LawyerRepository;
 import com.finalproject.finalproject.Service.ClientService;
 import com.finalproject.finalproject.Service.LawyerService;
 import com.finalproject.finalproject.entity.Client;
@@ -7,16 +8,22 @@ import com.finalproject.finalproject.entity.Lawyer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/lawyers")
+@RequestMapping(value = "/lawyers")
 public class LawyerController {
 
     @Autowired
     private LawyerService service;
+
+    @Autowired
+    private LawyerRepository lawyerRepo;
 
     //Read
     @RequestMapping(method = RequestMethod.GET)
@@ -30,10 +37,16 @@ public class LawyerController {
     }
 
     //Create
-    @RequestMapping(value = "/addLawyer", method = RequestMethod.POST)
+    @PostMapping("/addLawyer")
+    public String addLawyer(@ModelAttribute("lawyer") @Valid Lawyer abogado, BindingResult result, Model model) {
+        lawyerRepo.save(abogado);
+        model.addAttribute("abogado", lawyerRepo.findAll());
+        return "added";
+    }
+/*    @RequestMapping(value = "/addLawyer", method = RequestMethod.POST)
     public ResponseEntity<Object> addLawyer(@RequestBody Lawyer lawyer) {
         return new ResponseEntity<Object>(service.createLawyer(lawyer), HttpStatus.CREATED);
-    }
+    }*/
 
     //Update
     @RequestMapping(value = "/update/{lawyerId}", method = RequestMethod.PUT)
