@@ -15,8 +15,8 @@ public class PracticeAreas {
     private String practiceAreas;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "clientMatter", "client"})
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "practiceArea")
-    private Set<ClientMatter> clientMatters;
+    @OneToOne(fetch = FetchType.LAZY,mappedBy = "practiceArea")
+    private ClientMatter clientMatter;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class PracticeAreas {
         this.practiceAreas = practiceAreas;
     }
 
-    public Set<ClientMatter> getMatters() {
-        return clientMatters;
+    public ClientMatter getClientMatter() {
+        return clientMatter;
     }
 
-    public void setMatters(Set<ClientMatter> clientMatters) {
-        this.clientMatters = clientMatters;
+    public void setClientMatter(ClientMatter clientMatter) {
+        this.clientMatter = clientMatter;
     }
 }

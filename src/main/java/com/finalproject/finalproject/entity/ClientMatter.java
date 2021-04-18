@@ -19,10 +19,9 @@ public class ClientMatter {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lawyer", "client", "clientMatter"})
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientMatterid")
+    @JoinColumn(name = "matterId")
     private PracticeAreas practiceArea;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "clientMatter", "lawyers"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid")
     private Client client;

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/lawyers")
@@ -37,16 +38,20 @@ public class LawyerController {
     }
 
     //Create
-    @PostMapping("/addLawyer")
-    public String addLawyer(@ModelAttribute("lawyer") @Valid Lawyer abogado, BindingResult result, Model model) {
-        lawyerRepo.save(abogado);
-        model.addAttribute("abogado", lawyerRepo.findAll());
-        return "added";
-    }
-/*    @RequestMapping(value = "/addLawyer", method = RequestMethod.POST)
+
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> addLawyer(@RequestBody Lawyer lawyer) {
         return new ResponseEntity<Object>(service.createLawyer(lawyer), HttpStatus.CREATED);
-    }*/
+    }
+
+    @RequestMapping(value="/{id}/clents", method=RequestMethod.POST)
+    public ResponseEntity<Object> addClients(@RequestBody Set<Long> clientIds, @PathVariable Long id){
+        try {
+            return new ResponseEntity<Object>(service.addClients(clientIds, id), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>(e,HttpStatus.BAD_REQUEST);
+        }
+    }
 
     //Update
     @RequestMapping(value = "/update/{lawyerId}", method = RequestMethod.PUT)

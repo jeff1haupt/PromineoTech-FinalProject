@@ -18,6 +18,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
+          <factory-entry name="PromineoTech" />
           <factory-entry name="entityManagerFactory" value="2167f97c-74f6-45c2-bb0b-8de936cbe811" />
         </datasource-mapping>
         <naming-strategy-map />
