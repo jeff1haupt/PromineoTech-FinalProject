@@ -32,7 +32,7 @@ public class ClientMatterController {
 
     //Create
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Object> addMatter(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Object> addMatter( @PathVariable Long id) throws Exception {
         return new ResponseEntity<Object>(service.createMatter(id), HttpStatus.CREATED);
     }
 

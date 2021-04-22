@@ -44,7 +44,7 @@ public class LawyerController {
         return new ResponseEntity<Object>(service.createLawyer(lawyer), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/{id}/clents", method=RequestMethod.POST)
+    @RequestMapping(value="/{id}/clients", method=RequestMethod.POST)
     public ResponseEntity<Object> addClients(@RequestBody Set<Long> clientIds, @PathVariable Long id){
         try {
             return new ResponseEntity<Object>(service.addClients(clientIds, id), HttpStatus.CREATED);

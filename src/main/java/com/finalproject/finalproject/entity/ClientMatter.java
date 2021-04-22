@@ -22,7 +22,7 @@ public class ClientMatter {
     @JoinColumn(name = "matterId")
     private PracticeAreas practiceArea;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //Need to look at this and Set<Lawyer> creating issues with JSON
     @JoinColumn(name = "clientid")
     private Client client;
 
